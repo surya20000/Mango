@@ -1,11 +1,18 @@
 {
-    "version": 2,
-    "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
-    "routes": [{ "src": "/(.*)", "dest": "/" }],
-    "env": {
-      "DATABASE_URL": "MONGO_STRING",
-      "SECRET_KEY": "SECRET_KEY",
-      "PORT": "PORT"
+  "version": 2,
+  "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "/" }],
+  "env": {
+    "DATABASE_URL": "MONGO_STRING",
+    "SECRET_KEY": "SECRET_KEY",
+    "PORT": "PORT"
+  },
+  "functions": {
+    "api/users/signIn": {
+      "runtime": "nodejs16.x"
     }
+  },
+  "config": {
+    "timeout": 30000
   }
-  
+}
