@@ -17,14 +17,18 @@ jobs:
       - name: Install packages for client
         run: |
           cd client
-          rm -rf node_modules package-lock.json  # Clean up any previous installations
-          npm ci  # Install dependencies
+          if [ -d "node_modules" ]; then rm -rf node_modules; fi
+          if [ -f "package-lock.json" ]; then rm package-lock.json; fi
+          npm install
+          npm ci
 
       - name: Install packages for server
         run: |
           cd server
-          rm -rf node_modules package-lock.json  # Clean up any previous installations
-          npm ci 
+          if [ -d "node_modules" ]; then rm -rf node_modules; fi
+          if [ -f "package-lock.json" ]; then rm package-lock.json; fi
+          npm install
+          npm ci
 
       - name: Run ESLint
         run: |
@@ -32,4 +36,5 @@ jobs:
           npm run lint
 
       - name: Start the app
-        run: npm run dev
+        run: |
+          npm run dev
