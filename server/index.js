@@ -20,7 +20,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.get("/", (req, res) => {
   console.log("route visited");
-  res.send("hello");
+  res.send("hello baby");
 });
 
 mongoConnect(); // db connection
