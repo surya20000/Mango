@@ -12,17 +12,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14' 
+          node-version: '14'  
 
       - name: Install packages for client
         run: |
           cd client
-          npm ci
+          rm -rf node_modules package-lock.json  # Clean up any previous installations
+          npm ci  # Install dependencies
 
       - name: Install packages for server
         run: |
           cd server
-          npm ci
+          rm -rf node_modules package-lock.json  # Clean up any previous installations
+          npm ci 
 
       - name: Run ESLint
         run: |
