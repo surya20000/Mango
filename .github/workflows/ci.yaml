@@ -34,7 +34,3 @@ jobs:
         run: |
           cd client
           npm run lint
-
-      - name: Start the app
-        run: |
-          npm run dev
