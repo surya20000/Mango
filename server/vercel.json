@@ -13,7 +13,6 @@
   },
   "functions": {
     "api/users/signIn": {
-      "runtime": "nodejs16.x",
       "maxDuration": 30
     }
   }
