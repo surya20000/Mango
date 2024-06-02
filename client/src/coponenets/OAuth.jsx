@@ -24,11 +24,14 @@ const OAuth = () => {
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, provider);
       console.log(result);
-      const res = await axios.post("http://localhost:8000/api/users/signIn", {
-        username: result.user.displayName,
-        email: result.user.email,
-        image: result.user.photoURL,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_APP_BACKEND_URI}api/users/signIn`,
+        {
+          username: result.user.displayName,
+          email: result.user.email,
+          image: result.user.photoURL,
+        }
+      );
       const data = res;
       sessionStorage.setItem("access_token", data.data.token);
       dispatch(signInSuccess(data));
