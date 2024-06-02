@@ -13,7 +13,7 @@ jobs:
         run: npm ci
 
       - name: Run ESlint
-        run: npm run lint
+        run: npm lint
 
       - name: Start the app
         run: npm rub dev
