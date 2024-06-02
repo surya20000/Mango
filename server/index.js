@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 dotenv.config();
 import { mongoConnect } from "./utils/DbConnect.js";
 import userRoutes from "./routes/users.routes.js";
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
