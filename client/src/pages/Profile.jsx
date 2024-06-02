@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getDownloadURL,
@@ -47,35 +47,41 @@ const Profile = () => {
 
   useEffect(() => {
     if (file) {
-      handelFileUpload(file);
+      handleFileUpload(file);
     }
-  }, [file]);
+  }, [file, handleFileUpload]);
 
-  const handelFileUpload = (file) => {
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + file.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+  const handleFileUpload = useCallback(
+    (file) => {
+      const storage = getStorage(app);
+      const fileName = `${new Date().getTime()}_${file.name}`;
+      const storageRef = ref(storage, fileName);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setFilePercentage(Math.round(progress));
-      },
-
-      (error) => {
-        setfileUploadError(true);
-        console.log(error);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setFormData({ ...formData, avatar: downloadURL });
-        });
-      }
-    );
-  };
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setFilePercentage(Math.round(progress));
+        },
+        (error) => {
+          setfileUploadError(true);
+          console.error("File upload error:", error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setFormData((prevFormData) => ({
+              ...prevFormData,
+              avatar: downloadURL,
+            }));
+            setfileUploadError(false); // Reset error state on success
+          });
+        }
+      );
+    },
+    [setFilePercentage, setfileUploadError, setFormData]
+  );
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });

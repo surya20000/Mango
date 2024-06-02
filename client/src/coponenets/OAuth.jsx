@@ -16,7 +16,7 @@ const OAuth = () => {
     if (currentUser) {
       navigate("/");
     }
-  }, [currentUser]);
+  }, [currentUser, navigate]);
 
   const handelGoogleClick = async () => {
     try {
