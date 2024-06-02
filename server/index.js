@@ -25,28 +25,28 @@ app.get("/", (req, res) => {
 
 mongoConnect(); // db connection
 
-// io.on("connection", (socket) => {
-//   console.log("A user connected", socket.id);
-//   io.to(socket.id).emit("userid", socket.id);
-//   socket.on("messageSent", (msgObj) => {
-//     console.log(msgObj, "msg received from client");
-//     io.emit("displayMsg", msgObj);
-//   });
+io.on("connection", (socket) => {
+  console.log("A user connected", socket.id);
+  io.to(socket.id).emit("userid", socket.id);
+  socket.on("messageSent", (msgObj) => {
+    console.log(msgObj, "msg received from client");
+    io.emit("displayMsg", msgObj);
+  });
 
-//   socket.on("userTyping", (userN) => {
-//     console.log("user is typing");
-//     socket.broadcast.emit("updateUserTypingStatus", userN);
-//   });
+  socket.on("userTyping", (userN) => {
+    console.log("user is typing");
+    socket.broadcast.emit("updateUserTypingStatus", userN);
+  });
 
-//   socket.on("turnTypingOff", (UID) => {
-//     console.log("typing status needs to be turned off", UID);
-//     socket.broadcast.emit("turnOffTypingStatus");
-//   });
+  socket.on("turnTypingOff", (UID) => {
+    console.log("typing status needs to be turned off", UID);
+    socket.broadcast.emit("turnOffTypingStatus");
+  });
 
-//   socket.on("disconnect", () => {
-//     console.log("User disconnected");
-//   });
-// });
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
 
 server.listen(8000, () => {
   console.log("server is running at port 8000");
