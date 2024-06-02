@@ -9,11 +9,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install packages
-        run: npm ci
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' 
 
-      - name: Run ESlint
-        run: npm run lint
+      - name: Install packages for client
+        run: |
+          cd client
+          npm ci
+
+      - name: Install packages for server
+        run: |
+          cd server
+          npm ci
+
+      - name: Run ESLint
+        run: |
+          cd client
+          npm run lint
 
       - name: Start the app
-        run: npm rub dev
+        run: npm run dev
