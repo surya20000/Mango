@@ -9,7 +9,10 @@
   },
   "functions": {
     "api/users/signIn": {
-      "timeout": 30000
+      "runtime": "nodejs16.x"
     }
+  },
+  "config": {
+    "timeout": 30000
   }
 }
