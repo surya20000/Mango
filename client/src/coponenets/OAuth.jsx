@@ -25,7 +25,7 @@ const OAuth = () => {
       const result = await signInWithPopup(auth, provider);
       console.log(result);
       const res = await axios.post(
-        `${import.meta.env.VITE_APP_BACKEND_URI}api/users/signIn`,
+        `${import.meta.env.VITE_APP_BACKEND_URI || "mock_key"}api/users/signIn`,
         {
           username: result.user.displayName,
           email: result.user.email,

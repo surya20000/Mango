@@ -10,6 +10,7 @@ export const home = (req, res) => {
 };
 
 export const addUser = async (req, res) => {
+  console.log("route hit");
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -32,6 +33,7 @@ export const addUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   const { id } = req.params;
+  console.log("route hit");
   try {
     const user = await User.findByIdAndUpdate(
       { _id: id },
