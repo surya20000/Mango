@@ -46,10 +46,8 @@ const Chats = () => {
 
   useEffect(() => {
     socketRef.current.on("connect", () => {
-      console.log("user connected");
     });
     socketRef.current.on("userid", (id) => {
-      console.log("userId", id);
       setUserId(id);
     });
   }, []);
@@ -87,7 +85,6 @@ const Chats = () => {
         setloading(false);
       }
     } catch (error) {
-      console.log(error.message);
       setloading(false);
     }
   };
@@ -96,7 +93,6 @@ const Chats = () => {
     try {
       setMsg(e.target.value);
       socketRef.current.emit("userTyping", username);
-      console.log(username, "sent");
       setActivatehandelSend(true);
     } catch (error) {
       console.log(error.message);
@@ -104,7 +100,6 @@ const Chats = () => {
   };
 
   const handleImageUpload = async (e) => {
-    console.log("function ran");
     e.preventDefault();
     try {
       setloading(true);
@@ -128,7 +123,6 @@ const Chats = () => {
           });
       }
     } catch (error) {
-      console.log(error.message);
       setloading(false);
     }
   };
