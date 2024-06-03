@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv"
+dotenv.config()
 
 export const mongoConnect = async () => {
   try {
@@ -11,3 +13,5 @@ export const mongoConnect = async () => {
     console.log(error.message);
   }
 };
+
+console.log(process.env.MONGO_STRING);
