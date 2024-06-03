@@ -5,12 +5,11 @@ export const home = (req, res) => {
   try {
     res.status(200).send("Hello Chat App");
   } catch (error) {
-    console.log(error.message);
+    res.send(error.message)
   }
 };
 
 export const addUser = async (req, res) => {
-  console.log("route hit");
   try {
     const user = await User.findOne({ email: req.body.email }).exec({
       timeout: 30000,
@@ -28,7 +27,6 @@ export const addUser = async (req, res) => {
       res.status(200).send({ token, user });
     }
   } catch (error) {
-    console.log(error.message);
     res.status(500).send(error.message);
   }
 };

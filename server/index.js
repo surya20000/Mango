@@ -19,7 +19,6 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/users", userRoutes);
 app.get("/", (req, res) => {
-  console.log("route visited");
   res.send("hello baby");
 });
 
@@ -29,12 +28,10 @@ io.on("connection", (socket) => {
   console.log("A user connected", socket.id);
   io.to(socket.id).emit("userid", socket.id);
   socket.on("messageSent", (msgObj) => {
-    console.log(msgObj, "msg received from client");
     io.emit("displayMsg", msgObj);
   });
 
   socket.on("userTyping", (userN) => {
-    console.log("user is typing");
     socket.broadcast.emit("updateUserTypingStatus", userN);
   });
 
