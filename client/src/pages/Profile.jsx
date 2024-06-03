@@ -45,12 +45,6 @@ const Profile = () => {
     );
   }, [currentUser]);
 
-  useEffect(() => {
-    if (file) {
-      handleFileUpload(file);
-    }
-  }, [file, handleFileUpload]);
-
   const handleFileUpload = useCallback(
     (file) => {
       const storage = getStorage(app);
@@ -75,13 +69,19 @@ const Profile = () => {
               ...prevFormData,
               avatar: downloadURL,
             }));
-            setfileUploadError(false); // Reset error state on success
+            setfileUploadError(false);
           });
         }
       );
     },
     [setFilePercentage, setfileUploadError, setFormData]
   );
+
+  useEffect(() => {
+    if (file) {
+      handleFileUpload(file);
+    }
+  }, [file, handleFileUpload]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
