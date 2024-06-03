@@ -5,7 +5,7 @@ dotenv.config()
 export const mongoConnect = async () => {
   try {
     await mongoose
-      .connect(process.env.MONGO_STRING || "mock_key", { dbName: "SocketChatApp" })
+      .connect(process.env.MONGO_STRING ,{ dbName: "SocketChatApp" })
       .then(() => {
         console.log("Connected to db");
       });
@@ -13,5 +13,3 @@ export const mongoConnect = async () => {
     console.log(error.message);
   }
 };
-
-console.log(process.env.MONGO_STRING);
