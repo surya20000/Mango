@@ -12,7 +12,9 @@ export const home = (req, res) => {
 export const addUser = async (req, res) => {
   console.log("route hit");
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email }).exec({
+      timeout: 30000,
+    });
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
       res.send({ token, user });
