@@ -1,9 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { Server } from "socket.io";
 import express from "express";
 import http from "http";
 import cors from "cors";
-import dotenv from "dotenv";
-dotenv.config();
 import { mongoConnect } from "./utils/DbConnect.js";
 import userRoutes from "./routes/users.routes.js";
 const app = express();
